@@ -1,0 +1,54 @@
+---
+#This is input variable File for adddisk_v2.yaml
+#Below Format required this file ###########
+##SRNO:#DATATYPE:#SIZE:#DatastoreName
+############################################
+vcenter_hostname: "cos-ahs-evc-004.ahs.cos.lan"
+datacenter: "dc4"
+cluster: "saprun-dc4-01"
+vm_hostname: "ansible-01"
+prod_ip: "10.212.83.250"
+cluster: "saprun-hc-04"
+#no_of_disk: 2
+vdisk:
+  vdisk1:
+    type: "db"
+    size: 1
+    datastore: "auto_prov_free__100"
+  vdisk2:
+    type: "db"
+    size: 1
+    datastore: "auto_prov_free__100"
+#  vdisk3:
+#    type: "db"
+#    size: 150
+#    datastore: "hc005-bc-sr-bcb-009"
+#  vdisk4:
+#    type: "db"
+#    size: 500
+#    datastore: "hc005-bc-sr-bcb-009"
+#  vdisk5:
+#    type: "db"
+#    size: 500
+#    datastore: "hc005-bc-sr-bcb-009"
+#  vdisk6:
+#    type: "db"
+#    size: 500
+#    datastore: "hc005-bc-sr-bcb-009"
+#  vdisk7:
+#    type: "db"
+#    size: 21
+#    datastore: "auto_prov_free__100"
+#  vdisk8:
+#    type: "db"
+#    size: 22
+#    datastore: "auto_prov_free__100"
+#  vdisk9:
+#    type: "db"
+#    size: 22
+#    datastore: "auto_prov_free__100"
+#  vdisk10:
+#    type: "db"
+#    size: 22
+#    datastore: "auto_prov_free__100"
+#### If Number of Disk is more than 10 then you need to add the variable here for next Disk 

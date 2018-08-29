@@ -1,0 +1,84 @@
+#working version Name:  addSPUs.yaml
+#Auth: Anil Rathod
+#### 
+---
+  - hosts: localhost
+    gather_facts: no
+    vars_files:
+        - host_vars/input_addSPUs
+    vars_prompt:
+     - name: "vcenter_user"
+       prompt: "Enter vcenter username"
+       private: no
+     - name: "vcenter_pass"
+       prompt: "Enter vcenter password"
+       private: yes
+    tasks:  
+    - name: Stopping VM "{{ vm_hostname }}"
+      vmware_guest:
+        name: "{{ vm_hostname }}"
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_pass }}"
+        validate_certs: false
+        cluster: "{{ cluster }}"
+        datacenter: "{{ datacenter }}"
+        state: poweredoff
+      delegate_to: localhost
+
+    - name: Adding SPUs to VM  "{{ vm_hostname }}"
+      vmware_guest:
+        name: "{{ vm_hostname }}"
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_pass }}"
+        validate_certs: false
+        cluster: "{{ cluster }}"
+        datacenter: "{{ datacenter }}"
+        state: present 
+        folder: "{{ folder }}"
+        hardware:
+          #memory_gb: "{{ memory }}"
+          num_cpus: "{{ cpu }}" 
+          hotadd_cpu: yes
+          hotremove_cpu: yes
+          hotremove_memory: yes
+          hotadd_memory: yes
+      delegate_to: localhost
+      register: vm 
+    - name:  Adding Memory to VM  "{{ vm_hostname }}"
+      vmware_guest:
+        name: "{{ vm_hostname }}"
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_pass }}"
+        validate_certs: false
+        cluster: "{{ cluster }}"
+        datacenter: "{{ datacenter }}"
+        state: present
+        folder: "{{ folder }}"
+        hardware:       
+          memory_gb: "{{ memory }}"
+          hotadd_memory: yes
+          hotremove_memory: yes
+      delegate_to: localhost
+      register: vm_mem
+
+    - name: PoweringON VM  "{{ vm_hostname }}"
+      vmware_guest:
+        name: "{{ vm_hostname }}"
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_pass }}"
+        validate_certs: false
+        cluster: "{{ cluster }}"
+        datacenter: "{{ datacenter }}"
+        state: poweredon
+        folder: "{{ folder }}"
+      delegate_to: localhost
+      
+
+    - debug:
+        var: vm
+    - debug:
+        var: vm_mem

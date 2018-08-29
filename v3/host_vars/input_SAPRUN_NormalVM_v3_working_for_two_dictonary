@@ -1,0 +1,53 @@
+---
+#This is important Inventory file to build the VM...Keep this file neat and clean
+#
+##vCenter Specific variables
+vcenter_hostname: "cos-ahs-evc-004.ahs.cos.lan"
+datacenter: "dc4"
+cluster: "saprun-dc4-01"
+template: "auto_provi_suse12_saprun_template_v2.5"
+folder: "Saprun POC VMs and Templates"
+#
+#[vm_var] VM Specific Variables
+#
+vm_hostname: "ansible-001"
+memory: "2"
+cpu: "2"
+vlan: "osn-gen_unix-install"
+prod_ip: "10.212.83.250"
+gateway: "10.212.83.1"
+netmask: "255.255.255.0"
+backup_vlan: "osn-gen_unix-install"
+backup_ip: "10.10.10.100"
+backup_netmask: "255.255.255.0"
+backup_gateway: "10.10.10.1"
+#
+# Disk and File system related Variables
+#
+# ..depending upon the size, we need to select the Datastore, if 
+# ..No. of Disk is less and can be deplyed in single Datastore including OS and SWAP disk 
+# ..then use signle datastore option else you need to define multiple datastore
+# based on this we need to set the datastore variable...
+#
+datastore_vm_os_disk: "auto_prov_free__100"
+no_of_disk: 2
+vdisk:
+  vdisk1:
+    size: 2
+    datastore: "auto_prov_free__100"
+  vdisk2:
+    size: 2
+    datastore: "auto_prov_free__100"
+#  vdisk3:
+#    size: 2
+#    datastore: "auto_prov_free__100"
+#  vdisk4:
+#    size: 2
+#    datastore: "auto_prov_free__100"
+
+#..for below part..still workiing to automate FS Creatation
+pv_name_1st_disk:
+mount_point_1st_disk:
+#lv_name_1st_disk: this can be used from mount point name
+#vg_name_1st_disk: this can be used from mount point name
+mount_option_1st_disk: 

@@ -1,0 +1,9 @@
+---
+vcenter_hostname: "cos-ahs-evc-004.ahs.cos.lan"
+datacenter: "dc4"
+cluster: "saprun-dc4-01"
+template: "auto_provi_suse12_saprun_template_v2.5"
+folder: "Saprun POC VMs and Templates"
+vm_hostname: "ansible-01"
+memory: 2
+cpu: 2

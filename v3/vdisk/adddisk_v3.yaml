@@ -1,0 +1,67 @@
+---
+#Version V2
+#This Script can be run to allocate the Vdisk to Virtual Machine
+#Based on the SAP RUN standard
+#SCSI 0:x for OS Disks
+#SCSI 1:x for APPs Disks
+#SCSI 3:x for DB Disks
+#
+#--------------------------------------
+#anil.rathod@capgemini.com
+#
+- hosts: localhost
+  gather_facts: false
+  vars_files: 
+        - host_vars/input_vdisk_dict.yaml
+  vars:
+     devices: []
+     disk_output: 
+  vars_prompt:
+        - name: "vcenter_user"
+          prompt: "Enter vcenter username"
+          private: no
+        - name: "vcenter_pass"
+          prompt: "Enter vcenter Password: "
+          private: yes
+
+  tasks:
+    - name: Creating Virtual Disk for VM "{{ vm_hostname }}"...Number of Disk One..
+      script: /usr/bin/perl /usr/local/bin/addVdisk.pl --server "{{ vcenter_hostname }}" --username  "{{ vcenter_user }}" --password "{{ vcenter_pass }}" --vmname "{{ vm_hostname }}" --datastore "{{ item.value.datastore }}" --datatype "{{ item.value.type }}" --disksize "{{ item.value.size }}"
+      with_dict: "{{ vdisk }}"
+      #with_items:
+      #loop: "{{ vdisk }}"
+      #     - { datastore: "{{ vdisk1.datastore }}", size: "{{ vdisk1.size }}", type: "{{ vdisk1.type }}" }
+      #when: no_of_disk == 1
+      register: disk_output
+
+    - name: Below are the VDisk and their Device Infomration
+      debug:
+        msg: "{{ item.stdout_lines[4] }}"
+      with_items: "{{ disk_output.results }}"
+      register: disk_www
+
+    - name: Storing Device IDs
+      set_fact:
+        devices: "{{ devices + [item.stdout_lines[4]] }}"
+      loop: "{{ disk_output.results }}"
+
+    - name: Listing Out Device IDs
+      debug:
+        msg: "{{ devices }}" 
+
+     #### if you need to addd more that 10 Disk then you need to add task as above .....
+     #end 
+     #
+#################Play book second part to run on newly created VM ==============================
+- hosts: newvm
+  gather_facts: false
+  vars_files:
+        - host_vars/input_vdisk.yaml
+  tasks:
+  - name: Test Task
+    command: echo "hello"
+    register: hello
+  - name: display hello
+    debug:
+        msg: "{{ hello }}"
+

@@ -1,0 +1,89 @@
+---
+#This is important Inventory file to build the VM...Keep this file neat and clean
+#
+##vCenter Specific variables
+vcenter_hostname: "cos-ahs-evc-005.ahs.cos.lan"
+datacenter: "saprun-hc-01"
+cluster: "saprun-hc-04"
+#datastore: "hc005-xx-xx-016"
+template: "auto_provi_suse12_saprun_template_v2.5_NUTANIX"
+folder: "testvms"
+#
+#[vm_var] VM Specific Variables
+#
+vm_hostname: "ansible-02"
+memory: "2"
+cpu: "2"
+vlan: "osn-gen_unix-install"
+prod_ip: "10.212.83.250"
+gateway: "10.212.83.1"
+netmask: "255.255.255.0"
+backup_vlan: "osn-gen_unix-install"
+backup_ip: "10.10.10.100"
+backup_netmask: "255.255.255.0"
+backup_gateway: "10.10.10.1"
+#
+# Disk and File system related Variables
+# Datastore for OS and Swap Disk 
+datastore_vm_os_disk: "hc005-xx-xx-016"
+### Number of Additional Disk ...provide the count to below variable:
+#Each disk must be less than 500G, if requested FileSystem is more than 500G then divide into multiple of 500G e.g. Filesystem Size=800G, then vdisk1=500G and Vdisk2=300G
+no_of_disk: 2
+vdisk:
+   vdisk1:
+     type: "app"
+     size: 15
+     datastore: "hc005-xx-xx-016"
+   vdisk2:
+     type: "db"
+     size: 16
+     datastore: "hc005-xx-xx-016"
+#   vdisk3:
+#     type: "db"
+#     size: 17
+#     datastore: "hc005-xx-xx-016"
+#   vdisk4:
+#     type: "db"
+#     size: 18
+#     datastore: "hc005-xx-xx-016"
+#   vdisk5:
+#     type: "db"
+#     size: 19
+#     datastore: "hc005-xx-xx-016"
+#   vdisk6:
+#     type: "db"
+#     size: 20
+#     datastore: "auto_prov_free__100"
+#   vdisk7:
+#     type: "db"
+#     size: 21
+#     datastore: "auto_prov_free__100"
+#   vdisk8:
+#     type: "db"
+#     size: 22
+#     datastore: "auto_prov_free__100"
+#   vdisk9:
+#     type: "db"
+#     size: 22
+#     datastore: "auto_prov_free__100"
+#  vdisk10:
+#     type: "db"
+#     size: 22
+#     datastore: "auto_prov_free__100"
+#
+##size_of_1st_disk: 10
+#datastore_disk1: "auto_prov_free__100"
+#size_of_2nd_disk: 20
+#datastore_disk2: "auto_prov_free__100"
+#size_of_3rd_disk: 30
+#datastore_disk3: "auto_prov_free__100"
+#size_of_4th_disk: 40
+#datastore_disk4: "auto_prov_free__100"
+#size_of_5th_disk: 50
+#datastore_disk5: "auto_prov_free__100"
+#..for below part..still workiing to automate FS Creatation
+pv_name_1st_disk:
+mount_point_1st_disk:
+#lv_name_1st_disk: this can be used from mount point name
+#vg_name_1st_disk: this can be used from mount point name
+mount_option_1st_disk: 
