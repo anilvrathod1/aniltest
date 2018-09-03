@@ -25,7 +25,7 @@
           private: yes
 
   tasks:
-    - name: Creating Virtual Disk for VM "{{ vm_hostname }}"...Number of Disk One..
+    - name: Creating Virtual Disk for VM "{{ vm_hostname }}"...please wait..
       script: /usr/bin/perl /usr/local/bin/addVdisk.pl --server "{{ vcenter_hostname }}" --username  "{{ vcenter_user }}" --password "{{ vcenter_pass }}" --vmname "{{ vm_hostname }}" --datastore "{{ item.value.datastore }}" --datatype "{{ item.value.type }}" --disksize "{{ item.value.size }}"
       with_dict: "{{ vdisk }}"
       #with_items:
@@ -56,7 +56,7 @@
 - hosts: newvm
   gather_facts: false
   vars_files:
-        - host_vars/input_vdisk.yaml
+        #- host_vars/input_vdisk.yaml
   tasks:
   - name: Test Task
     command: echo "hello"
