@@ -22,7 +22,7 @@ backup_netmask: "255.255.255.0"
 backup_gateway: "10.10.10.1"
 # Disk and File system related Variables
 # 1. Datastore for OS and Swap Disk 
-datastore_vm_os_disk: "auto_prov_free__100"
+datastore: "auto_prov_free__100"
 ### 
 # 2. Number of Additional Disk ...provide the count to below variable:
 #Each disk must be less than 500G, if requested FileSystem is more than 500G then divide into multiple of 500G e.g. Filesystem Size=800G, then vdisk1=500G and Vdisk2=300G
