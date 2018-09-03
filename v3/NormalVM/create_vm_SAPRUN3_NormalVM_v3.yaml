@@ -25,10 +25,10 @@
       osdisk:
         - size_gb: 20
           type: eagerzeroedthick
-          datastore: "{{ datastore_vm_os_disk }}"
+          datastore: "{{ datastore }}" ##change 1
         - size_gb: 20
           type: eagerzeroedthick
-          datastore: "{{ datastore_vm_os_disk }}"
+          datastore: "{{ datastore }}"  #change2
 
         
     tasks:
