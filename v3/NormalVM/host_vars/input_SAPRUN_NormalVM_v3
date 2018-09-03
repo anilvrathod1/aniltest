@@ -29,7 +29,7 @@ backup_gateway: "10.10.10.1"
 # ..then use signle datastore option else you need to define multiple datastore
 # based on this we need to set the datastore variable...
 #
-datastore_vm_os_disk: "auto_prov_free__100"
+datastore: "auto_prov_free__100" ##Change1
 no_of_disk: 2
 vdisk:
     - size_gb: 4
