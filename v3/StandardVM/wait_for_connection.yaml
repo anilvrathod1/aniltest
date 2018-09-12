@@ -1,5 +1,6 @@
 ---
 - hosts: all
   become: yes
+  tasks:
   - name: waiting for server to come back after reboot
     wait_for_connection:
