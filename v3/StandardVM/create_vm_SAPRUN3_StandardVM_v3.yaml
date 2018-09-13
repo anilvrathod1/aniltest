@@ -122,7 +122,7 @@
     - name: Wait for server to restart successfully
       local_action:
       module: wait_for
-        host: {{ prod_ip }}
+        host: "{{ prod_ip }}"
         #host={{ ansible_default_ipv4.address }}
         port: 22
         delay: 1
