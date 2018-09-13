@@ -107,21 +107,15 @@
         state:  poweredon
         customization:
            hostname: "{{ vm_hostname }}"
-           domain: barry-callebaut.com
       delegate_to: localhost
       register: vm_1 
 
     - debug:
         var: vm_1
-    #####Changes on 09/13######
+
     - name: Wait for system to become reachable..as it is reconfiguring and rebooting..2nd time
-      local_action:
-    #  wait_for_connection:
-    #     timeout: 1900
-        wait_for_connection:
+      wait_for_connection:
          host: "{{ prod_ip }}"
-         #host={{ ansible_default_ipv4.address }}
          port: 22
          delay: 1
          timeout: 120
-
